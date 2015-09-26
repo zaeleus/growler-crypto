@@ -68,12 +68,12 @@ fn main() {
         Rgba([0x78, 0x32, 0x42, 0xff]), // purple
         Rgba([0x7d, 0x81, 0x02, 0xff]), // green
     ];
-    //let thresholds = [40.0, 50.0, 20.0, 40.0];
+
     let bounds = Rect::new(72, 89, 541, 708);
 
     let pathname = env::args().skip(1).next().expect("no input given");
     let thresholds: Vec<f64> = env::args().skip(2).take(4).map(|t| {
-        t.parse().unwrap()
+        t.parse().ok().expect(&format!("invalid threshold value '{}'", t))
     }).collect();
 
     let mut img = image::open(pathname).ok().expect("input failed to open");
